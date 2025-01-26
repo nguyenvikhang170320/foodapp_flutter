@@ -1,9 +1,11 @@
 import 'package:foodapp/pages/bottomnav.dart';
+import 'package:foodapp/pages/homepages.dart';
 import 'package:foodapp/pages/listproduct.dart';
 import 'package:foodapp/provider/cartprovider.dart';
 import 'package:foodapp/provider/productprovider.dart';
 import 'package:foodapp/provider/userprovider.dart';
 import 'package:foodapp/services/database/databasemethod.dart';
+import 'package:foodapp/services/sharedpreferences/userpreferences.dart';
 import 'package:foodapp/widgets/notificationbutton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -56,17 +58,19 @@ class _CheckOutState extends State<CheckOut> {
     ),
   );
   // button thanh toán
+
   Widget _buildCheckOut() {
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     return Container(
       margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
       child: ElevatedButton(
         style: raisedButtonStyle,
-        onPressed: () async {
-          // List<Products> listProducts = [widget.products];
-          // print(listProducts);
-          final cartProvider = Provider.of<CartProvider>(context, listen: false);
-          final productProvider = Provider.of<ProductProvider>(context, listen: false);
-          final userProvider = Provider.of<UserProvider>(context, listen: false);
+        onPressed: cartProvider.items.isEmpty
+            ? null // Disable the button if the cart is empty
+            : () async {
+          // Your existing checkout logic here
           double totalPrice = cartProvider.calculateTotalPrice();
           print(totalPrice);
           String reduce = cartProvider.discounts();
@@ -84,21 +88,27 @@ class _CheckOutState extends State<CheckOut> {
           String address = userProvider.getAddressData();
           print(address);
 
-
           try {
-            await DatabaseMethods().addOrder(cartProvider.items.map((cartItem) => cartItem.products).toList(),totalPrice, quantitys, reduce,ship,name, email, sdt, address);
+            await DatabaseMethods().addOrder(
+                cartProvider.items.map((cartItem) => cartItem.products).toList(),
+                totalPrice,
+                quantitys,
+                reduce,
+                ship,
+                name,
+                email,
+                sdt,
+                address);
             print('Thanh toán đơn hàng thành công');
             ToastService.showSuccessToast(context,
                 length: ToastLength.medium,
                 expandedHeight: 100,
                 message: "Thanh toán thành công");
             productProvider.addNotification("Notification");
-            cartProvider.clearCart();//xóa sạch đơn hàng sau khi thanh toán thành công
-
+            cartProvider.clearCart(); //xóa sạch đơn hàng sau khi thanh toán thành công
           } catch (e) {
             print('Lỗi khi thanh toán đơn hàng: $e');
           }
-
         },
         child: Text('Thanh toán'),
       ),
@@ -226,8 +236,12 @@ class _CheckOutState extends State<CheckOut> {
                             ),
                             IconButton(
                               onPressed: () {
+                                final cartProvider = Provider.of<CartProvider>(context, listen: false);
                                 print("delete");
                                 cart.removeItem(item);
+                                setState(() {
+                                  cartProvider.items.isEmpty;
+                                });
                               },
                               icon: Icon(
                                 Icons.delete_forever,

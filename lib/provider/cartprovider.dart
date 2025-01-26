@@ -19,8 +19,9 @@ class CartProvider extends ChangeNotifier {
   List<CartItem> get items => _items;
 
   //xóa giỏ hàng
-  void removeItem(CartItem item) {
+  void removeItem(CartItem item){
     _items.removeWhere((cartItem) => cartItem == item);
+    // Cập nhật trạng thái giỏ hàng
     notifyListeners();
   }
 
