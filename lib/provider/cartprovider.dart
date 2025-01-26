@@ -49,7 +49,7 @@ class CartProvider extends ChangeNotifier {
     formatter.maximumFractionDigits = 0;
     return formatter.format(totalPrice);
   }
-
+  //phí vận chuyển về VNĐ
   String get formattedShip {
     final locale = 'vi_VN';
     final formatter = NumberFormat.currency(name: "đ", locale: locale);
@@ -91,6 +91,11 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
+  //% giá giảm để truyền giá trị qua trang hóa đơn
+  String discounts(){
+    return discountPercentage;
+  }
+
   //số lượng đã đặt tất cả sản phẩm
   int get quantitys {
     return _items.fold(0, (total, item) => total + item.quantity);
@@ -119,5 +124,9 @@ class CartProvider extends ChangeNotifier {
     } else {
       return 7000;
     }
+  }
+  //phí vận chuyển để truyền giá trị qua trang hóa đơn
+  double ship(){
+    return shipCode;
   }
 }

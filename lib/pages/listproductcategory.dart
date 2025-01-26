@@ -20,6 +20,7 @@ class _ListProductCategoryState extends State<ListProductCategory> {
   Stream? fooditemStream;
 
   ontheload() async {
+    print("CategoryProduct");
     fooditemStream =
         await DatabaseMethods().getProductCategoryItem(widget.category);
     setState(() {});

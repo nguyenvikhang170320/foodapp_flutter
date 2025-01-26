@@ -145,15 +145,15 @@ class _HomePagesState extends State<HomePages> {
                 aboutColor = false;
                 callColor = false;
               });
-              // Navigator.of(context).pushReplacement(
-              //   MaterialPageRoute(
-              //     builder: (ctx) => Chats(),
-              //   ),
-              // );
-              ToastService.showToast(context,
-                  length: ToastLength.medium,
-                  expandedHeight: 100,
-                  message: "Chức năng đang phát triển");
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (ctx) => Chats(),
+                ),
+              );
+              // ToastService.showToast(context,
+              //     length: ToastLength.medium,
+              //     expandedHeight: 100,
+              //     message: "Chức năng đang phát triển");
             },
             title: Text("Chats"),
             leading: Icon(Icons.chat_outlined),

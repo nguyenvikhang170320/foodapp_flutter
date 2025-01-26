@@ -1,17 +1,13 @@
 import 'package:foodapp/pages/bottomnav.dart';
-import 'package:foodapp/provider/productprovider.dart';
-import 'package:foodapp/provider/userprovider.dart';
 import 'package:foodapp/services/database/databasemethod.dart';
 import 'package:foodapp/widgets/widget_support.dart';
 import 'package:foodapp/widgets/notificationbutton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class Order extends StatefulWidget {
-  final String userId; // ID của người dùng
-  const Order({super.key, required this.userId});
+  const Order({super.key});
 
   @override
   State<Order> createState() => _OrderState();
@@ -62,11 +58,9 @@ class _OrderState extends State<Order> {
           if (snapshot.hasError) {
             return Text('Something went wrong');
           }
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Text("Loading");
           }
-
           return snapshot.hasData
               ? ListView.builder(
                   padding: EdgeInsets.zero,
@@ -75,10 +69,7 @@ class _OrderState extends State<Order> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data.docs[index];
-                    final userProvider =
-                        Provider.of<UserProvider>(context, listen: false);
-                    final productProvider =
-                        Provider.of<ProductProvider>(context, listen: false);
+                    print(ds);
                     //chuyển đổi giá trị tiền tệ
                     final locale = 'vi_VN';
                     final formatter =
@@ -86,9 +77,11 @@ class _OrderState extends State<Order> {
                     formatter.maximumFractionDigits = 0;
                     String price = formatter.format(ds["totalAmount"]);
                     //ngày giờ
-                    Timestamp timestamp = ds["createdAt"]; // Lấy từ Firebase hoặc nguồn khác
+                    Timestamp timestamp =
+                        ds["createdAt"]; // Lấy từ Firebase hoặc nguồn khác
                     int timestamps = timestamp.seconds;
-                    final dateTime = DateTime.fromMillisecondsSinceEpoch(timestamps * 1000);
+                    final dateTime =
+                        DateTime.fromMillisecondsSinceEpoch(timestamps * 1000);
                     final formatters = DateFormat('dd/MM/yyyy HH:mm:ss');
                     final formattedDate = formatters.format(dateTime);
 
@@ -111,8 +104,6 @@ class _OrderState extends State<Order> {
                     allProductNames = allProductNames.substring(
                         0, allProductNames.length - 2);
                     print('Các sản phẩm: $allProductNames');
-
-
 
                     return Container(
                       margin: EdgeInsets.all(10),
@@ -149,6 +140,9 @@ class _OrderState extends State<Order> {
                                       style: TextStyle(fontSize: 14.0)),
                                 ],
                               ),
+                              SizedBox(
+                                height: 5,
+                              ),
                               // Product details
                               Row(
                                 children: [
@@ -158,9 +152,18 @@ class _OrderState extends State<Order> {
                                       style: TextStyle(fontSize: 14.0)),
                                 ],
                               ),
-
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Text("Danh mục:",
+                                      style: AppWidget.boldTextFeildStyle()),
+                                  Text(productCategory,
+                                      style: TextStyle(fontSize: 14.0)),
+                                ],
+                              ),
                               SizedBox(height: 5.0),
-
                               Row(
                                 children: [
                                   Text("Giá:",
@@ -191,13 +194,13 @@ class _OrderState extends State<Order> {
                               // Customer details
                               Text("Thông tin khách hàng:",
                                   style: AppWidget.boldTextFeildStyle()),
-                              Text("Người mua: " + userProvider.getNameData(),
+                              Text("Người mua: " + ds["nameNM"].toString(),
                                   style: AppWidget.userTextFeildStyle()),
-                              Text("Email: " + userProvider.getEmailData(),
+                              Text("Email: " + ds["emailNM"].toString(),
                                   style: AppWidget.userTextFeildStyle()),
-                              Text("SĐT: " + userProvider.getPhoneData(),
+                              Text("SĐT: " + ds["sdtNM"].toString(),
                                   style: AppWidget.userTextFeildStyle()),
-                              Text("Địa chỉ: " + userProvider.getAddressData(),
+                              Text("Địa chỉ: " + ds["addressNM"].toString(),
                                   style: AppWidget.userTextFeildStyle()),
                               SizedBox(height: 5.0),
                               Row(

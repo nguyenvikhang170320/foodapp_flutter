@@ -21,6 +21,7 @@ class _ListProductState extends State<ListProduct> {
   Stream? fooditemStream;
 
   ontheload() async {
+    print("product");
     fooditemStream = await DatabaseMethods().getProductItem();
     setState(() {});
   }

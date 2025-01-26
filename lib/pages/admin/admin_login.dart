@@ -1,5 +1,5 @@
 import 'package:foodapp/pages/admin/home_admin.dart';
-import 'package:foodapp/pages/welcomepage.dart';
+import 'package:foodapp/pages/bottomnav.dart';
 import 'package:foodapp/widgets/widget_support.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class _AdminLoginState extends State<AdminLogin> {
             onTap: () {
               //chuyển màn hình
               Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => WelcomePage()));
+                  context, MaterialPageRoute(builder: (context) => BottomNav()));
             },
             child: Icon(
               Icons.arrow_back_ios_new_outlined,
@@ -32,7 +32,7 @@ class _AdminLoginState extends State<AdminLogin> {
             )),
         centerTitle: true,
         title: Text(
-          "Trang Quản trị viên",
+          "Đăng nhập Admin",
           style: AppWidget.HeadlineTextFeildStyle(),
         ),
       ),
@@ -49,7 +49,7 @@ class _AdminLoginState extends State<AdminLogin> {
 
                     children: [
                     Text(
-                  "Chú ý: Nếu bạn là người dùng app hoặc người bán hàng bạn không dùng được chức năng này!!Bạn vui lòng liên hệ admin để có tài khoản đăng nhập? SĐT 0855792196",
+                  "Chú ý: Nếu bạn là người dùng app hoặc người bán hàng bạn không dùng được chức năng này!!Bạn vui lòng liên hệ admin(người tạo APP) để có tài khoản đăng nhập?",
                   style: TextStyle(fontSize: 16,color: Colors.red, fontWeight: FontWeight.bold)),
                       SizedBox(
                         height: 50.0,

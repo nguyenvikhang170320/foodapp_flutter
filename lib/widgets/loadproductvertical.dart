@@ -17,6 +17,7 @@ class _LoadProductVerticalState extends State<LoadProductVertical> {
   Stream? fooditemStream;
 
   ontheload() async {
+    print("productmoi");
     fooditemStream = await DatabaseMethods().getProductMoiItem();
     setState(() {});
   }

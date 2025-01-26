@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:foodapp/pages/bottomnav.dart';
-import 'package:foodapp/services/sharedpreferences/userpreferences.dart';
-import 'package:foodapp/widgets/notificationbutton.dart';
+import 'package:foodapp/pages/admin/home_admin.dart';
 import 'package:foodapp/widgets/widget_support.dart';
 import 'package:intl/intl.dart';
 class Revenue extends StatefulWidget {
@@ -19,13 +17,11 @@ class _RevenueState extends State<Revenue> {
   Map<String, String> formattedRevenues = {}; // Map to store formatted revenue strings
 
   Future<void> fetchData() async {
-
-    final uid = await UserPreferences.getUid();
-    print(uid);
+    String idAdmin = "KtbYFbzC2cV0w1IivFsL";
     Query query = FirebaseFirestore.instance
         .collection("orders")
-        .doc("hoadon")
-        .collection(uid!)
+        .doc(idAdmin)
+        .collection("hoadon")
         .where('createdAt', isGreaterThanOrEqualTo: Timestamp.fromDate(DateTime(2025, 1, 1, 0, 0, 0, 0))) // Ensure all hours, minutes, seconds, milliseconds are included
         .where('createdAt', isLessThanOrEqualTo: Timestamp.fromDate(DateTime(2025, 12, 31, 23, 59, 59, 999)));
 
@@ -119,14 +115,11 @@ class _RevenueState extends State<Revenue> {
           onPressed: () {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (ctx) => BottomNav(),
+                builder: (ctx) => HomeAdmin(),
               ),
             );
           },
         ),
-        actions: <Widget>[
-          NotificationButton(),
-        ],
       ),
       body: ListView.builder(
         itemCount: months.length,

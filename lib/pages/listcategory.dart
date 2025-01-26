@@ -20,6 +20,7 @@ class _ListCategoryState extends State<ListCategory> {
   Stream? fooditemStream;
 
   ontheload() async {
+    print("Category");
     fooditemStream = await DatabaseMethods().getCategoryItem();
     setState(() {});
   }

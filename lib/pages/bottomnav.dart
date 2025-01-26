@@ -1,8 +1,8 @@
+import 'package:foodapp/pages/admin/admin_login.dart';
 import 'package:foodapp/pages/checkout.dart';
 import 'package:foodapp/pages/homepages.dart';
 import 'package:foodapp/pages/order.dart';
 import 'package:foodapp/pages/profile.dart';
-import 'package:foodapp/pages/revenue.dart';
 import 'package:foodapp/provider/userprovider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -21,21 +21,21 @@ class _BottomNavState extends State<BottomNav> {
   late Widget currentPage;
   late HomePages home;
   late Profile profile;
-  late Revenue revenue;
+  late AdminLogin adminLogin;
   late CheckOut checkOut;
   late Order order;
 
   @override
   void initState() {
-    final user = Provider.of<UserProvider>(context, listen: false);
+    // final user = Provider.of<UserProvider>(context, listen: false);
     home = HomePages();
     profile = Profile();
-    revenue = Revenue();
+    adminLogin = AdminLogin();
     checkOut = CheckOut();
     order = Order(
-      userId: user.getUidData(),
+      // userId: user.getUidData(),
     );
-    pages = [home, checkOut, order, revenue, profile];
+    pages = [home, checkOut, order,  profile, adminLogin,];
     super.initState();
   }
 
@@ -70,12 +70,12 @@ class _BottomNavState extends State<BottomNav> {
               color: Colors.black,
             ),
             Icon(
-              Icons.add_alert_outlined,
+              Icons.person_outlined,
               size: 30,
               color: Colors.black,
             ),
             Icon(
-              Icons.person_outlined,
+              Icons.admin_panel_settings_rounded,
               size: 30,
               color: Colors.black,
             ),
