@@ -2,6 +2,8 @@ import 'package:foodapp/model/colorsize.dart';
 import 'package:foodapp/pages/bottomnav.dart';
 import 'package:foodapp/pages/checkout.dart';
 import 'package:foodapp/provider/cartprovider.dart';
+import 'package:foodapp/provider/productprovider.dart';
+import 'package:foodapp/provider/userprovider.dart';
 import 'package:foodapp/services/database/databasemethod.dart';
 import 'package:foodapp/widgets/notificationbutton.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:flutter/widgets.dart';
 import 'package:foodapp/widgets/widget_support.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:random_string/random_string.dart';
 import 'package:toasty_box/toast_enums.dart';
 import 'package:toasty_box/toast_service.dart';
 
@@ -159,7 +162,7 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartProvider>(context, listen: false);
+
     return Scaffold(
       bottomNavigationBar: Container(
         height: 60,
@@ -179,26 +182,27 @@ class _DetailPageState extends State<DetailPage> {
               style: raisedButtonStyle,
               onPressed: () async {
                 // print(1);
-                final ColorSize colorSize;
+                final cart = Provider.of<CartProvider>(context, listen: false);
+                String idCart = randomAlphaNumeric(8);
+                print(idCart);
+                cart.addItem(idCart, widget.products, _selectedSize,selectedColor, count);
 
-                cart.addItem(widget.products, _selectedSize,selectedColor, count);
                 try {
-                  await DatabaseMethods().addQuantityProduct(widget.products, count);
+                  await DatabaseMethods().addCart(
+                      idCart, widget.products,count);
                   print('Thêm đơn hàng thành công');
                   ToastService.showSuccessToast(context,
                       length: ToastLength.medium,
                       expandedHeight: 100,
                       message: "Thêm sản phẩm vào giỏ hàng thành công");
-
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => CheckOut(),
+                    ),
+                  );
                 } catch (e) {
                   print('Lỗi khi thêm sản phẩm: $e');
                 }
-
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => CheckOut(),
-                  ),
-                );
               },
               child: Text('Thêm vào giỏ hàng'),
             ),

@@ -6,9 +6,10 @@ import 'package:intl/intl.dart';
 class CartProvider extends ChangeNotifier {
   List<CartItem> _items = [];
 
-  void addItem(Products product, String size, String color, int quantity) {
+  void addItem(String idCart, Products product, String size, String color, int quantity) {
     notifyListeners();
     _items.add(CartItem(
+      idCart: idCart,
       products: product,
       size: size,
       quantity: quantity,
@@ -33,6 +34,9 @@ class CartProvider extends ChangeNotifier {
 
   String get product {
     return _items.fold("", (total, item) => item.products.toString());
+  }
+  String get idCart {
+    return _items.fold("", (total, item) => item.idCart);
   }
 
 //format tổng tiền ban đầu về VNĐ

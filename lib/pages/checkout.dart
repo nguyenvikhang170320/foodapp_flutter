@@ -63,6 +63,25 @@ class _CheckOutState extends State<CheckOut> {
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    String cartId = cartProvider.idCart;
+    print(cartId);
+    // Your existing checkout logic here
+    double totalPrice = cartProvider.calculateTotalPrice();
+    print(totalPrice);
+    String reduce = cartProvider.discounts();
+    print(reduce);
+    double ship = cartProvider.ship();
+    print(ship);
+    int quantitys = cartProvider.quantitys;
+    print(quantitys);
+    String name = userProvider.getNameData();
+    print(name);
+    String email = userProvider.getEmailData();
+    print(email);
+    String sdt = userProvider.getPhoneData();
+    print(sdt);
+    String address = userProvider.getAddressData();
+    print(address);
     return Container(
       margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
       child: ElevatedButton(
@@ -70,26 +89,9 @@ class _CheckOutState extends State<CheckOut> {
         onPressed: cartProvider.items.isEmpty
             ? null // Disable the button if the cart is empty
             : () async {
-          // Your existing checkout logic here
-          double totalPrice = cartProvider.calculateTotalPrice();
-          print(totalPrice);
-          String reduce = cartProvider.discounts();
-          print(reduce);
-          double ship = cartProvider.ship();
-          print(ship);
-          int quantitys = cartProvider.quantitys;
-          print(quantitys);
-          String name = userProvider.getNameData();
-          print(name);
-          String email = userProvider.getEmailData();
-          print(email);
-          String sdt = userProvider.getPhoneData();
-          print(sdt);
-          String address = userProvider.getAddressData();
-          print(address);
-
           try {
             await DatabaseMethods().addOrder(
+                cartId,
                 cartProvider.items.map((cartItem) => cartItem.products).toList(),
                 totalPrice,
                 quantitys,
@@ -106,6 +108,11 @@ class _CheckOutState extends State<CheckOut> {
                 message: "Thanh toán thành công");
             productProvider.addNotification("Notification");
             cartProvider.clearCart(); //xóa sạch đơn hàng sau khi thanh toán thành công
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => BottomNav(),
+              ),
+            );
           } catch (e) {
             print('Lỗi khi thanh toán đơn hàng: $e');
           }
@@ -172,10 +179,15 @@ class _CheckOutState extends State<CheckOut> {
         ],
       ),
       body: Consumer<CartProvider>(builder: (context, cart, child) {
-        // print(2);
+        if (cart.items.isEmpty) {
+          return Center(
+            child: Text('Giỏ hàng trống'),
+          );
+        }
         return ListView.builder(
           itemCount: cart.items.length,
           itemBuilder: (context, index) {
+
             final item = cart.items[index];
             //chuyển đổi giá trị tiền tệ
             final locale = 'vi_VN';
@@ -186,54 +198,46 @@ class _CheckOutState extends State<CheckOut> {
               child: Column(
                 children: <Widget>[
                   Card(
+                    color: Colors.greenAccent,
                     child: Column(
                       children: <Widget>[
                         Row(
+
                           children: [
+
                             Container(
                               margin: EdgeInsets.symmetric(horizontal: 10),
                               padding: EdgeInsets.symmetric(horizontal: 10),
-                              height: 120,
-                              width: 120,
+                              height: 100,
+                              width: 100,
                               child: Image.network(item.products.image),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              height: 120,
-                              width: 160,
-                              child: ListTile(
-                                title: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      item.products.name,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Container(
-                                      width: 120,
-                                      height: 20,
-                                      child: Row(
-                                        children: [
-                                          Text("Số lượng: "),
-                                          Text("${item.quantity}"),
-                                        ],
-                                      ),
-                                    ),
-                                    Text(
-                                      price.toString(),
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ),
-                                  ],
-                                ),
-
-                              ),
+                              height: 80,
+                              width: 180,
+                              margin: EdgeInsets.all(5),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    item.products.name,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold, color: Colors.black),
+                                  ),
+                                  Text("Số lượng: ${item.quantity}",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold, color: Colors.black),),
+                                  Text(
+                                    "Giá: "+price.toString(),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,),
+                                  ),
+                                ],
+                              )
                             ),
+                            SizedBox(width: 30,),
                             IconButton(
                               onPressed: () {
                                 final cartProvider = Provider.of<CartProvider>(context, listen: false);
@@ -253,8 +257,6 @@ class _CheckOutState extends State<CheckOut> {
                       ],
                     ),
                   ),
-
-
                 ],
               ),
             );
