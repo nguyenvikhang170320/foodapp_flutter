@@ -133,11 +133,11 @@ class _AdminLoginState extends State<AdminLogin> {
                                       EdgeInsets.symmetric(horizontal: 20.0),
                                   width: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
-                                      color: Colors.black,
+                                      color: Colors.red,
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Center(
                                     child: Text(
-                                      "LogIn",
+                                      "Đăng nhập",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20.0,

@@ -102,22 +102,16 @@ class _LoginState extends State<Login> {
         child: Container(
           padding: EdgeInsets.only(left: 20.0, right: 20.0),
           width: MediaQuery.of(context).size.width,
-          height: 300,
+          height: 250,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(20)),
           child: Container(
-            height: 100,
+            height: 120,
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             width: double.infinity,
             child: Column(
               children: [
-                Text(
-                  "Đăng nhập tài khoản",
-                  style: AppWidget.HeadlineTextFeildStyle(),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20,),
                 EmailTextFormField(
                   controllerUser:
                       emailController, //liên quan đến file mytextformfield.dart
@@ -159,6 +153,7 @@ class _LoginState extends State<Login> {
                     });
                   },
                 ),
+
               ],
             ),
           ),
@@ -171,21 +166,16 @@ class _LoginState extends State<Login> {
     return Container(
       margin: EdgeInsets.only(top: 50.0, left: 20.0, right: 20.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(
-            height: 20,
-          ),
           _buildAllTextFormField(),
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20,),
           MyButtonUser(
             name: "Đăng nhập",
             onPressed: () {
               validation();
             },
           ),
+          SizedBox(height: 80,),
           ChangeScreen(
             name: "Đăng ký",
             whichAccount: "Bạn chưa có tài khoản?",
@@ -195,15 +185,7 @@ class _LoginState extends State<Login> {
                   MaterialPageRoute(builder: (ctx) => SignUp()));
             },
           ),
-          ChangeScreen(
-            name: "Welcome",
-            whichAccount: "Bạn muốn quay về trang trước?",
-            onTap: () {
-              isChecked = false;
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (ctx) => WelcomePage()));
-            },
-          ),
+
         ],
       ),
     );
@@ -214,6 +196,24 @@ class _LoginState extends State<Login> {
     return Scaffold(
       key: _messangerKey, // dùng message scaffold
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text(
+          "Trang đăng nhập",
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>WelcomePage()));
+          },
+        ),
+      ),
       body: SafeArea(
         child: Stack(
           children: <Widget>[
@@ -226,7 +226,7 @@ class _LoginState extends State<Login> {
                       end: Alignment.bottomRight,
                       colors: [
                     Color.fromARGB(255, 11, 226, 154),
-                    Color.fromARGB(255, 13, 167, 146),
+                    Color.fromARGB(255, 11, 226, 154),
                   ])),
             ),
             Container(
@@ -235,16 +235,6 @@ class _LoginState extends State<Login> {
                 child: Container(
                   child: Column(
                     children: [
-                      Center(
-                        child: Image.asset(
-                          "assets/images/logo.png",
-                          width: MediaQuery.of(context).size.width / 1.5,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
                       _buildBottomPart(),
                     ],
                   ),

@@ -19,7 +19,7 @@ class AppWidget {
 
   static TextStyle userTextFeildStyle() {
     return TextStyle(
-        color: Colors.blueAccent,
+        color: Colors.red,
         fontSize: 14.0,
         fontWeight: FontWeight.bold,
         fontFamily: 'Poppins');

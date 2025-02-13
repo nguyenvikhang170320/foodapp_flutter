@@ -152,8 +152,8 @@ class _DetailPageState extends State<DetailPage> {
 
   //style button
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-    foregroundColor: Colors.black87,
-    backgroundColor: Colors.grey[300],
+    foregroundColor: Colors.black,
+    backgroundColor: Color.fromARGB(255, 11, 226, 154),
     padding: EdgeInsets.symmetric(horizontal: 16),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -185,7 +185,7 @@ class _DetailPageState extends State<DetailPage> {
                 final cart = Provider.of<CartProvider>(context, listen: false);
                 String idCart = randomAlphaNumeric(8);
                 print(idCart);
-                cart.addItem(idCart, widget.products, _selectedSize,selectedColor, count);
+                cart.addItem(idCart, widget.products, _selectedSize,selectedColor, count, context);
 
                 try {
                   await DatabaseMethods().addCart(

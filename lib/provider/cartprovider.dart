@@ -1,3 +1,4 @@
+
 import 'package:foodapp/model/cartitem.dart';
 import 'package:foodapp/model/products.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,8 @@ import 'package:intl/intl.dart';
 class CartProvider extends ChangeNotifier {
   List<CartItem> _items = [];
 
-  void addItem(String idCart, Products product, String size, String color, int quantity) {
-    notifyListeners();
+
+  void addItem(String idCart, Products product, String size, String color, int quantity, BuildContext context) {
     _items.add(CartItem(
       idCart: idCart,
       products: product,
@@ -15,6 +16,7 @@ class CartProvider extends ChangeNotifier {
       quantity: quantity,
       color: color,
     ));
+    notifyListeners();
   }
 
   List<CartItem> get items => _items;

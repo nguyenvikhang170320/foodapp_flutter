@@ -143,10 +143,8 @@ class _OrderState extends State<Order> {
                           // Product details
                           Row(
                             children: [
-                              Text("Các sản phẩm:",
-                                  style: AppWidget.boldTextFeildStyle()),
-                              Text(allProductNames,
-                                  style: TextStyle(fontSize: 14.0)),
+                              Expanded(child: Text("Các sản phẩm: "+allProductNames,
+                                style: AppWidget.boldTextFeildStyle(),),)
                             ],
                           ),
                           SizedBox(

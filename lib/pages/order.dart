@@ -137,7 +137,7 @@ class _OrderState extends State<Order> {
                                   Text("Mã Hóa đơn:",
                                       style: AppWidget.boldTextFeildStyle()),
                                   Text(ds["maHD"],
-                                      style: TextStyle(fontSize: 14.0)),
+                                      style: AppWidget.boldTextFeildStyle()),
                                 ],
                               ),
                               SizedBox(
@@ -146,10 +146,8 @@ class _OrderState extends State<Order> {
                               // Product details
                               Row(
                                 children: [
-                                  Text("Các sản phẩm:",
-                                      style: AppWidget.boldTextFeildStyle()),
-                                  Text(allProductNames,
-                                      style: TextStyle(fontSize: 14.0)),
+                                  Expanded(child: Text("Các sản phẩm: "+allProductNames,
+                                      style: AppWidget.boldTextFeildStyle(),),)
                                 ],
                               ),
                               SizedBox(
@@ -160,7 +158,7 @@ class _OrderState extends State<Order> {
                                   Text("Danh mục:",
                                       style: AppWidget.boldTextFeildStyle()),
                                   Text(productCategory,
-                                      style: TextStyle(fontSize: 14.0)),
+                                      style: AppWidget.boldTextFeildStyle()),
                                 ],
                               ),
                               SizedBox(height: 5.0),
@@ -187,7 +185,7 @@ class _OrderState extends State<Order> {
                                   Text("Thời gian đặt hàng:",
                                       style: AppWidget.boldTextFeildStyle()),
                                   Text(formattedDate.toString(),
-                                      style: AppWidget.billTextFeildStyle()),
+                                      style: AppWidget.boldTextFeildStyle()),
                                 ],
                               ),
                               SizedBox(height: 5.0),
@@ -213,7 +211,7 @@ class _OrderState extends State<Order> {
                                       color: ds['status'] == 'chưa thanh toán'
                                           ? Colors.black
                                           : ds['status'] == 'đã thanh toán'
-                                              ? Colors.green
+                                              ? Color.fromARGB(255, 11, 226, 154)
                                               : Colors.red,
                                     ),
                                   ),

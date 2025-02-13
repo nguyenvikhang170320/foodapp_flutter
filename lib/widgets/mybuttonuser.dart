@@ -14,7 +14,7 @@ class MyButtonUser extends StatelessWidget {
         width: 130,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.pink,
+            backgroundColor: Colors.red,
             padding:
                 EdgeInsets.fromLTRB(20, 10, 20, 10), // Some padding example
             shape: RoundedRectangleBorder(

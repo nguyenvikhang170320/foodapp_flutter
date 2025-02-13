@@ -1,4 +1,5 @@
 import 'package:foodapp/pages/login.dart';
+import 'package:foodapp/pages/welcomepage.dart';
 import 'package:foodapp/services/database/databasemethod.dart';
 import 'package:foodapp/widgets/addresstextformfield.dart';
 import 'package:foodapp/widgets/changescreen.dart';
@@ -260,10 +261,6 @@ class _SignUpState extends State<SignUp> {
       margin: EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
       child: Column(
         children: [
-          Text(
-            "Đăng ký tài khoản",
-            style: AppWidget.HeadlineTextFeildStyle(),
-          ),
           SizedBox(
             height: 10,
           ),
@@ -306,6 +303,24 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text(
+          "Trang đăng ký",
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>WelcomePage()));
+          },
+        ),
+      ),
       body: ListView(
         children: <Widget>[
           SafeArea(
@@ -319,8 +334,8 @@ class _SignUpState extends State<SignUp> {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                        Color.fromARGB(255, 226, 58, 11),
-                        Color.fromARGB(255, 231, 109, 75),
+                            Color.fromARGB(255, 11, 226, 154),
+                            Color.fromARGB(255, 11, 226, 154),
                       ])),
                 ),
                 Container(
@@ -329,13 +344,6 @@ class _SignUpState extends State<SignUp> {
                     child: Container(
                       child: Column(
                         children: [
-                          Center(
-                            child: Image.asset(
-                              "assets/images/logo.png",
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
                           SizedBox(
                             height: 10,
                           ),

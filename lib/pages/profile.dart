@@ -331,13 +331,12 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.lightGreen,
         appBar: AppBar(
           leading: edit == true
               ? IconButton(
                   icon: Icon(
                     Icons.close,
-                    color: Colors.amber,
+                    color: Colors.black,
                     size: 30,
                   ),
                   onPressed: () {
@@ -349,7 +348,7 @@ class _ProfileState extends State<Profile> {
               : IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: Colors.black45,
+                    color: Colors.black,
                     size: 30,
                   ),
                   onPressed: () {
@@ -372,7 +371,7 @@ class _ProfileState extends State<Profile> {
                     icon: Icon(
                       Icons.check,
                       size: 30,
-                      color: Colors.cyanAccent,
+                      color: Colors.green,
                     ))
           ],
         ),

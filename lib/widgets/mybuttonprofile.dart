@@ -15,7 +15,7 @@ class MyButtonProfile extends StatelessWidget {
         width: 220,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.pink,
+            backgroundColor: Colors.red,
             padding:
             EdgeInsets.fromLTRB(20, 10, 20, 10), // Some padding example
             shape: RoundedRectangleBorder(
@@ -26,7 +26,10 @@ class MyButtonProfile extends StatelessWidget {
           ),
           child: Text(
             name,
-            style: AppWidget.boldTextFeildStyle()
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold),
           ),
           onPressed: onPressed,
         ),

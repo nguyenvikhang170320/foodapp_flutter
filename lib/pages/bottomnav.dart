@@ -3,10 +3,8 @@ import 'package:foodapp/pages/checkout.dart';
 import 'package:foodapp/pages/homepages.dart';
 import 'package:foodapp/pages/order.dart';
 import 'package:foodapp/pages/profile.dart';
-import 'package:foodapp/provider/userprovider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -44,15 +42,16 @@ class _BottomNavState extends State<BottomNav> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
           height: 60,
-          buttonBackgroundColor: Colors.yellow,
-          color: Colors.blueAccent,
+          color: Colors.transparent,
+          buttonBackgroundColor: Color.fromARGB(255, 11, 226, 154),
+          backgroundColor: Colors.transparent,
           animationDuration: Duration(milliseconds: 300),
           onTap: (int index) {
             setState(() {
               currentTabIndex = index;
             });
           },
-          items: const [
+          items: [
             Icon(
               Icons.home_outlined,
               size: 30,

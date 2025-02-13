@@ -145,17 +145,17 @@ class _HomePagesState extends State<HomePages> {
                 aboutColor = false;
                 callColor = false;
               });
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (ctx) => Chats(),
-                ),
-              );
-              // ToastService.showToast(context,
-              //     length: ToastLength.medium,
-              //     expandedHeight: 100,
-              //     message: "Chức năng đang phát triển");
+              // Navigator.of(context).pushReplacement(
+              //   MaterialPageRoute(
+              //     builder: (ctx) => Chats(),
+              //   ),
+              // );
+              ToastService.showToast(context,
+                  length: ToastLength.medium,
+                  expandedHeight: 100,
+                  message: "Chức năng đang phát triển");
             },
-            title: Text("Chats"),
+            title: Text("Nhắn tin"),
             leading: Icon(Icons.chat_outlined),
             selected: billColor,
           ),
@@ -278,7 +278,7 @@ class _HomePagesState extends State<HomePages> {
         ),
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(
             Icons.menu,
@@ -289,13 +289,6 @@ class _HomePagesState extends State<HomePages> {
           },
         ),
         actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-          ),
           NotificationButton(),
         ],
       ),

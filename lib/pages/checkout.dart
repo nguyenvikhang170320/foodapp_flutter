@@ -51,7 +51,7 @@ class _CheckOutState extends State<CheckOut> {
   //style button
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
     foregroundColor: Colors.black87,
-    backgroundColor: Color.fromARGB(255, 5, 235, 74),
+    backgroundColor: Color.fromARGB(255, 11, 226, 154),
     padding: EdgeInsets.symmetric(horizontal: 16),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -129,7 +129,7 @@ class _CheckOutState extends State<CheckOut> {
         height: 60,
         width: 100,
         padding: EdgeInsets.only(bottom: 10),
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: _buildCheckOut(),
       ),
       appBar: AppBar(
@@ -187,7 +187,6 @@ class _CheckOutState extends State<CheckOut> {
         return ListView.builder(
           itemCount: cart.items.length,
           itemBuilder: (context, index) {
-
             final item = cart.items[index];
             //chuyển đổi giá trị tiền tệ
             final locale = 'vi_VN';
@@ -202,9 +201,7 @@ class _CheckOutState extends State<CheckOut> {
                     child: Column(
                       children: <Widget>[
                         Row(
-
                           children: [
-
                             Container(
                               margin: EdgeInsets.symmetric(horizontal: 10),
                               padding: EdgeInsets.symmetric(horizontal: 10),
@@ -237,7 +234,7 @@ class _CheckOutState extends State<CheckOut> {
                                 ],
                               )
                             ),
-                            SizedBox(width: 30,),
+                            SizedBox(width: 20,),
                             IconButton(
                               onPressed: () {
                                 final cartProvider = Provider.of<CartProvider>(context, listen: false);
@@ -267,7 +264,7 @@ class _CheckOutState extends State<CheckOut> {
       return Container(
         padding: EdgeInsets.all(10),
         margin: EdgeInsets.all(10),
-        height: 150,
+        height: 130,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
