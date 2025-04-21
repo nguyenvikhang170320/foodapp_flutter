@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:foodapp/model/products.dart';
 import 'package:foodapp/pages/detailpage.dart';
 import 'package:foodapp/pages/listproduct.dart';
@@ -45,7 +46,8 @@ class _LoadProductHorticalState extends State<LoadProductHortical> {
                     final Products products = Products.fromFirestore(ds);
                     //chuyển đổi giá trị tiền tệ
                     final locale = 'vi_VN';
-                    final formatter = NumberFormat.currency(name:"đ",locale: locale);
+                    final formatter =
+                        NumberFormat.currency(name: "đ", locale: locale);
                     formatter.maximumFractionDigits = 0;
                     String price = formatter.format(ds["Price"]);
                     return GestureDetector(
@@ -71,35 +73,38 @@ class _LoadProductHorticalState extends State<LoadProductHortical> {
                                   borderRadius: BorderRadius.circular(30),
                                   child: Image.network(
                                     ds["Image"],
-                                    height: 60,
-                                    width: 60,
+                                    height: 30,
+                                    width: 30,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
-                                Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          SizedBox(
-                                            width: 20.0,
-                                          ),
-                                          Container(
-                                              child: Text(
-                                            ds["Name"],
-                                            style: AppWidget
-                                                .semiBoolTextFeildStyle(),
-                                          )),
-                                          Container(
-                                              child: Text(
-                                                  price.toString(),
-                                            style: AppWidget
-                                                .semiBoolTextFeildStyle(),
-                                          )),
-                                        ],
-                                      ),
-                                    ],
+                                Expanded(
+                                  child: Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              width: 20.0,
+                                            ),
+                                            Container(
+                                                child: Text(
+                                              ds["Name"],
+                                              style: AppWidget
+                                                  .semiBoolTextFeildStyle(),
+                                            )),
+                                            Container(
+                                                child: Text(
+                                              price.toString(),
+                                              style: AppWidget
+                                                  .semiBoolTextFeildStyle(),
+                                            )),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],

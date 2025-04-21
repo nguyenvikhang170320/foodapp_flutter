@@ -15,6 +15,8 @@ import 'package:toasty_box/toast_enums.dart';
 import 'package:toasty_box/toast_service.dart';
 
 class HomePages extends StatefulWidget {
+  const HomePages({super.key});
+
   @override
   State<HomePages> createState() => _HomePagesState();
 }
@@ -233,7 +235,7 @@ class _HomePagesState extends State<HomePages> {
 
   Widget _buildDanhmuc() {
     return Container(
-      height: 65,
+      height: 50,
       child: GridView.count(
         crossAxisCount: 1,
         crossAxisSpacing: 5,

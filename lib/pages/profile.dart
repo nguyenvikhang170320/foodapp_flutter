@@ -181,7 +181,7 @@ class _ProfileState extends State<Profile> {
     var image = await _picker.pickImage(source: imageSource);
     if (image != null) {
       setState(() {
-        selectedImage = File(image!.path);
+        selectedImage = File(image.path);
       });
     }
   }
@@ -455,7 +455,9 @@ class _ProfileState extends State<Profile> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20)),
@@ -470,7 +472,9 @@ class _ProfileState extends State<Profile> {
                                 )
                               : Container(),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         //xác minh tài khoản
                         edit == true
                             ? MyButtonProfile(
@@ -478,7 +482,9 @@ class _ProfileState extends State<Profile> {
                                 name: "Xác minh tài khoản",
                               )
                             : SizedBox(),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         //xoá tài khoản
                         edit == false
                             ? MyButtonProfile(

@@ -45,7 +45,8 @@ class _LoadProductVerticalState extends State<LoadProductVertical> {
                     final Products products = Products.fromFirestore(ds);
                     //chuyển đổi giá trị tiền tệ
                     final locale = 'vi_VN';
-                    final formatter = NumberFormat.currency(name:"đ",locale: locale);
+                    final formatter =
+                        NumberFormat.currency(name: "đ", locale: locale);
                     formatter.maximumFractionDigits = 0;
                     String price = formatter.format(ds["Price"]);
                     return GestureDetector(
@@ -62,48 +63,50 @@ class _LoadProductVerticalState extends State<LoadProductVertical> {
                         child: Material(
                           elevation: 5.0,
                           borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(60),
-                                  child: Image.network(
-                                    ds["Image"],
-                                    height: 90,
-                                    width: 90,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 5),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          child: Text(
-                                            ds["Name"],
-                                            style: AppWidget
-                                                .semiBoolTextFeildStyle(),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            price.toString(),
-                                            style: AppWidget
-                                                .semiBoolTextFeildStyle(),
-                                          ),
-                                        ),
-                                      ],
+                          child: Expanded(
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(60),
+                                    child: Image.network(
+                                      ds["Image"],
+                                      height: 30,
+                                      width: 30,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Expanded(
+                                    child: Container(
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 5),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              ds["Name"],
+                                              style: AppWidget
+                                                  .semiBoolTextFeildStyle(),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              price.toString(),
+                                              style: AppWidget
+                                                  .semiBoolTextFeildStyle(),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

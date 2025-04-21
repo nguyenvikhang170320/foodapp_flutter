@@ -116,8 +116,8 @@ class _ListCategoryState extends State<ListCategory> {
                                   borderRadius: BorderRadius.circular(60),
                                   child: Image.network(
                                     ds["Image"],
-                                    height: 120,
-                                    width: 120,
+                                    height: 60,
+                                    width: 60,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
