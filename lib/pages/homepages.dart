@@ -9,7 +9,7 @@ import 'package:foodapp/widgets/carouselview.dart';
 import 'package:foodapp/widgets/loadproducthortical.dart';
 import 'package:foodapp/widgets/loadproductvertical.dart';
 import 'package:foodapp/widgets/notificationbutton.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselView;
 import 'package:provider/provider.dart';
 import 'package:toasty_box/toast_enums.dart';
 import 'package:toasty_box/toast_service.dart';

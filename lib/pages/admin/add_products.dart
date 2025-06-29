@@ -18,10 +18,10 @@ class AddProducts extends StatefulWidget {
 
 class _AddProductsState extends State<AddProducts> {
   final List<String> fooditems = [
-    'đồ uống',
-    'kem',
-    'đồ ăn',
-    'trái cây',
+    'Đồ uống',
+    'Kem',
+    'Đồ ăn',
+    'Thực phẩm tươi sống',
   ];
   String? valueCategory;
   TextEditingController namecontroller = new TextEditingController();
