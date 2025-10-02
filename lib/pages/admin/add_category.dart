@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:foodapp/services/cloudinary_service.dart';
 import 'package:foodapp/services/database/databasemethod.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -71,27 +72,49 @@ class _AddCategoryState extends State<AddCategory> {
 
   //upload lên cơ sở dữ liệu
   uploadItem() async {
-    if (selectedImage != null && namecontroller.text != "") {
-      String addId = randomAlphaNumeric(10);
-      Reference firebaseStorageRef =
-          FirebaseStorage.instance.ref().child("imageDanhmuc").child(addId);
-      final UploadTask uploadTask = firebaseStorageRef.putFile(selectedImage!);
+    if (selectedImage != null && namecontroller.text.isNotEmpty) {
+      try {
+        // Upload ảnh lên Cloudinary
+        String? uploadedUrl = await CloudinaryService().uploadImage(selectedImage!);
 
-      var downloadUrl = await (await uploadTask).ref.getDownloadURL();
+        if (uploadedUrl != null) {
+          // Tạo map dữ liệu
+          String addId = randomAlphaNumeric(10);
+          Map<String, dynamic> addItem = {
+            "Image": uploadedUrl, // link ảnh từ Cloudinary
+            "Name": namecontroller.text,
+          };
 
-      Map<String, dynamic> addItem = {
-        "Image": downloadUrl,
-        "Name": namecontroller.text,
-      };
+          // Lưu vào database (Firestore/MySQL tuỳ bạn)
+          await DatabaseMethods().categoryDetail(addItem);
 
-      await DatabaseMethods().categoryDetail(addItem);
-
-      ToastService.showSuccessToast(context,
-          length: ToastLength.medium,
-          expandedHeight: 100,
-          message: "Thêm danh mục thành công");
+          ToastService.showSuccessToast(
+            context,
+            length: ToastLength.medium,
+            expandedHeight: 100,
+            message: "Thêm danh mục thành công",
+          );
+        } else {
+          ToastService.showErrorToast(
+            context,
+            message: "Upload ảnh thất bại!",
+          );
+        }
+      } catch (e) {
+        print("UploadItem error: $e");
+        ToastService.showErrorToast(
+          context,
+          message: "Có lỗi xảy ra khi upload",
+        );
+      }
+    } else {
+      ToastService.showErrorToast(
+        context,
+        message: "Vui lòng chọn ảnh và nhập tên!",
+      );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

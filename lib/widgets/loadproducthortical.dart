@@ -67,49 +67,29 @@ class _LoadProductHorticalState extends State<LoadProductHortical> {
                           child: Container(
                             padding: EdgeInsets.all(5),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: Image.network(
-                                    ds["Image"],
-                                    height: 30,
-                                    width: 30,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            SizedBox(
-                                              width: 20.0,
-                                            ),
-                                            Container(
-                                                child: Text(
-                                              ds["Name"],
-                                              style: AppWidget
-                                                  .semiBoolTextFeildStyle(),
-                                            )),
-                                            Container(
-                                                child: Text(
-                                              price.toString(),
-                                              style: AppWidget
-                                                  .semiBoolTextFeildStyle(),
-                                            )),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          children: [
+                          ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Image.network(
+                            ds["Image"],
+                            height: 30,
+                            width: 30,
+                            fit: BoxFit.cover,
                           ),
+                        ),
+                        Spacer(), // chiếm khoảng trống thay cho Expanded
+                        Text(
+                          ds["Name"],
+                          style: AppWidget.semiBoolTextFeildStyle(),
+                        ),
+                        Text(
+                          price.toString(),
+                          style: AppWidget.semiBoolTextFeildStyle(),
+                        ),
+                        ],
+                      ),
+
+                    ),
                         ),
                       ),
                     );

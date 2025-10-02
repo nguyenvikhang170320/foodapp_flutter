@@ -22,7 +22,7 @@ class Products {
     return Products(
       idProduct: data['idProduct'],
       name: data['Name'],
-      price: data['Price'],
+      price: (data['Price'] as num).toDouble(),
       image: data['Image'],
       category: data['Category'],
       description: data['Description'],

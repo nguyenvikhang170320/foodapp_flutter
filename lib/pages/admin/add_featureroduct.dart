@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:foodapp/services/cloudinary_service.dart';
 import 'package:foodapp/services/database/databasemethod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -82,36 +83,45 @@ class _AddFeatureProductState extends State<AddFeatureProduct> {
         namecontroller.text != "" &&
         pricecontroller.text != "" &&
         detailcontroller.text != "") {
-      String addId = randomAlphaNumeric(10);
-      Reference firebaseStorageRef = FirebaseStorage.instance
-          .ref()
-          .child("imageSanphamNoiBat")
-          .child(addId);
-      final UploadTask uploadTask = firebaseStorageRef.putFile(selectedImage!);
+      try {
+        // Upload ảnh lên Cloudinary
+        String? uploadedUrl = await CloudinaryService().uploadImage(selectedImage!);
 
-      var downloadUrl = await (await uploadTask).ref.getDownloadURL();
-
-      Map<String, dynamic> addItem = {
-        "Image": downloadUrl,
-        "Name": namecontroller.text,
-        "Price":
+        if(uploadedUrl != null){
+          Map<String, dynamic> addItem = {
+            "Image": uploadedUrl,
+            "Name": namecontroller.text,
+            "Price":
             double.tryParse(pricecontroller.text) ?? 0.0, // Convert to double
-        "Description": detailcontroller.text,
-        "Category": valueCategory,
-      };
-
-      DocumentReference docRef =
+            "Description": detailcontroller.text,
+            "Category": valueCategory,
+          };
+          DocumentReference docRef =
           await DatabaseMethods().productFeatureDetail(addItem);
-      String documentId = docRef.id;
+          String documentId = docRef.id;
 
-      addItem['idProduct'] = documentId;
+          addItem['idProduct'] = documentId;
 
-      await docRef.update({'idProduct': documentId});
+          await docRef.update({'idProduct': documentId});
 
-      ToastService.showSuccessToast(context,
-          length: ToastLength.medium,
-          expandedHeight: 100,
-          message: "Thêm sản phẩm thành công");
+          ToastService.showSuccessToast(context,
+              length: ToastLength.medium,
+              expandedHeight: 100,
+              message: "Thêm sản phẩm nỗi bật thành công");
+        } else {
+          ToastService.showErrorToast(
+            context,
+            message: "Upload ảnh thất bại!",
+          );
+        }
+      } catch (e) {
+        print("UploadItem error: $e");
+        ToastService.showErrorToast(
+          context,
+          message: "Có lỗi xảy ra khi upload",
+        );
+      }
+
     }
   }
 

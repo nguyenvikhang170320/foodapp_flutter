@@ -63,54 +63,35 @@ class _LoadProductVerticalState extends State<LoadProductVertical> {
                         child: Material(
                           elevation: 5.0,
                           borderRadius: BorderRadius.circular(10),
-                          child: Expanded(
                             child: Container(
                               padding: EdgeInsets.all(5),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(60),
-                                    child: Image.network(
-                                      ds["Image"],
-                                      height: 30,
-                                      width: 30,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 5),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              ds["Name"],
-                                              style: AppWidget
-                                                  .semiBoolTextFeildStyle(),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              price.toString(),
-                                              style: AppWidget
-                                                  .semiBoolTextFeildStyle(),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            children: [
+                            ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Image.network(
+                              ds["Image"],
+                              height: 30,
+                              width: 30,
+                              fit: BoxFit.cover,
                             ),
                           ),
+                          Spacer(), // chiếm khoảng trống thay cho Expanded
+                          Text(
+                            ds["Name"],
+                            style: AppWidget.semiBoolTextFeildStyle(),
+                          ),
+                          SizedBox(width: 5,),
+                          Text(
+                            price.toString(),
+                            style: AppWidget.semiBoolTextFeildStyle(),
+                          ),
+                          ],
                         ),
+
                       ),
+                          ),
+                        ),
                     );
                   })
               : CircularProgressIndicator();
